@@ -2,31 +2,13 @@ package com.cpan228.clothes_warehouse.model;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
-
+//@Data
+@Builder
 public class ItemModel {
 
-    public enum FashionBrand {
-        BALENCIAGA("Balenciaga"),
-        STONE_ISLAND("Stone Island"),
-        DIOR("Dior"),
-        GUCCI("Gucci"),
-        VERSACE("Versace"),
-        LOUIS_VUITTON("Louis Vuitton");
-
-        private String brandName;
-
-        private FashionBrand(String brandName) {
-            this.brandName = brandName;
-        }
-
-        public String getBrandName() {
-            return brandName;
-        }
-
-    }
-
-    @Id
     private Long id;
 
     private FashionBrand brand;
@@ -59,5 +41,25 @@ public class ItemModel {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public enum FashionBrand {
+        BALENCIAGA("Balenciaga"),
+        STONE_ISLAND("Stone Island"),
+        DIOR("Dior"),
+        GUCCI("Gucci"),
+        VERSACE("Versace"),
+        LOUIS_VUITTON("Louis Vuitton");
+
+        private String brandName;
+
+        private FashionBrand(String brandName) {
+            this.brandName = brandName;
+        }
+
+        public String getBrandName() {
+            return brandName;
+        }
+
     }
 }

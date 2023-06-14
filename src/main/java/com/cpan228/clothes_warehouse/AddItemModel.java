@@ -2,8 +2,11 @@
 
     import com.cpan228.clothes_warehouse.model.ItemModel;
     import com.cpan228.clothes_warehouse.model.ItemModel.FashionBrand;
+    import com.cpan228.clothes_warehouse.repository.impl.jdbcItemModelRepository;
 
     import jakarta.validation.Valid;
+    import lombok.extern.slf4j.Slf4j;
+    import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Controller;
 
     import org.springframework.validation.BindingResult;
@@ -20,8 +23,13 @@
 
 
     @Controller
+    @Slf4j //for the .log
     @RequestMapping("/add")
     public class AddItemModel implements WebMvcConfigurer {
+
+//        @Autowired
+//        private jdbcItemModelRepository itemModelRepository;
+
         @Override
         public void addViewControllers(ViewControllerRegistry registry) {
             registry.addViewController("/confirm").setViewName("confirm");
@@ -43,7 +51,8 @@
             if (results.hasErrors()) {
                 return "ItemForm";
             }
-
+//            log.info("Processing fighter: {}", itemModel);
+//            itemModelRepository.save(itemModel);
             return "redirect:/confirm";
         }
     }
