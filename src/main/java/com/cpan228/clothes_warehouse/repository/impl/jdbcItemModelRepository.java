@@ -2,6 +2,7 @@ package com.cpan228.clothes_warehouse.repository.impl;
 
 import com.cpan228.clothes_warehouse.model.ItemModel;
 import com.cpan228.clothes_warehouse.repository.ItemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
@@ -11,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class jdbcItemModelRepository implements ItemRepository {
     private JdbcTemplate jdbcTemplate;
-
+    @Autowired
     public jdbcItemModelRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -29,7 +30,7 @@ public class jdbcItemModelRepository implements ItemRepository {
 
     @Override
     public void save(ItemModel itemModel){
-        var insertItem = "INSERT INTO items (brand, year_created, price) VALUES (?, ?, ?)";
+        var insertItem = "INSERT INTO items (brand, yearofcreation, price) VALUES (?, ?, ?)";
         var keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             var ps = connection.prepareStatement(insertItem);

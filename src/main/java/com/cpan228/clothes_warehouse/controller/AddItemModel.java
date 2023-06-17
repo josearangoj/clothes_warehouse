@@ -1,4 +1,4 @@
-    package com.cpan228.clothes_warehouse;
+    package com.cpan228.clothes_warehouse.controller;
 
     import com.cpan228.clothes_warehouse.model.ItemModel;
     import com.cpan228.clothes_warehouse.model.ItemModel.FashionBrand;
@@ -27,8 +27,8 @@
     @RequestMapping("/add")
     public class AddItemModel implements WebMvcConfigurer {
 
-//        @Autowired
-//        private jdbcItemModelRepository itemModelRepository;
+        @Autowired
+        private jdbcItemModelRepository itemModelRepository;
 
         @Override
         public void addViewControllers(ViewControllerRegistry registry) {
@@ -36,7 +36,13 @@
         }
 
         @GetMapping
-        public String showAddItemForm(ItemModel itemModel) {
+        public String showAddItemForm(Model model) {
+            System.out.println("====== testing testing");
+            ItemModel itemModel = new ItemModel();
+            model.addAttribute("itemModel", itemModel);
+            model.addAttribute("yearOfCreation", 2023);
+            model.addAttribute("price", 1001);
+            System.out.println(model);
             return "ItemForm";
         }
 
@@ -51,8 +57,10 @@
             if (results.hasErrors()) {
                 return "ItemForm";
             }
-//            log.info("Processing fighter: {}", itemModel);
-//            itemModelRepository.save(itemModel);
+            log.info("Processing item: {}", itemModel);
+            itemModelRepository.save(itemModel);
+            Long generatedId = itemModel.getId();
+            log.info("Generated ID: " + generatedId);
             return "redirect:/confirm";
         }
     }

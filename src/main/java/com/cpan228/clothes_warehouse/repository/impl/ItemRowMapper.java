@@ -14,7 +14,7 @@ public class ItemRowMapper implements RowMapper<ItemModel> {
         return ItemModel.builder()
                 .id(rs.getLong("id"))
                 .brand(ItemModel.FashionBrand.valueOf(rs.getString("brand")))
-                .yearOfCreation(rs.getInt("year_created"))
+                .yearOfCreation(rs.getInt("yearofcreation"))
                 .price(rs.getDouble("price"))
                 .build();
     }

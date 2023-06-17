@@ -1,14 +1,18 @@
 package com.cpan228.clothes_warehouse.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-//@Data
+
+@Data
 @Builder
 public class ItemModel {
 
+    @Id
     private Long id;
 
     private FashionBrand brand;
@@ -18,6 +22,15 @@ public class ItemModel {
 
     @Min(value = 1001, message = "Price must be higher than 1000")
     private double price;
+    public ItemModel() {
+    }
+
+    public ItemModel(Long id, FashionBrand brand, int yearOfCreation, double price) {
+        this.id = id;
+        this.brand = brand;
+        this.yearOfCreation = yearOfCreation;
+        this.price = price;
+    }
 
     public FashionBrand getBrand() {
         return brand;
@@ -61,5 +74,43 @@ public class ItemModel {
             return brandName;
         }
 
+    }
+
+    public static class ItemModelBuilder {
+        private Long id;
+        private FashionBrand brand;
+        private @Min(value = 2021, message = "Year must be at least 2021") int yearOfCreation;
+        private @Min(value = 1001, message = "Price must be higher than 1000") double price;
+
+        ItemModelBuilder() {
+        }
+
+        public ItemModelBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public ItemModelBuilder brand(FashionBrand brand) {
+            this.brand = brand;
+            return this;
+        }
+
+        public ItemModelBuilder yearOfCreation(@Min(value = 2021, message = "Year must be at least 2021") int yearOfCreation) {
+            this.yearOfCreation = yearOfCreation;
+            return this;
+        }
+
+        public ItemModelBuilder price(@Min(value = 1001, message = "Price must be higher than 1000") double price) {
+            this.price = price;
+            return this;
+        }
+
+        public ItemModel build() {
+            return new ItemModel(this.id, this.brand, this.yearOfCreation, this.price);
+        }
+
+        public String toString() {
+            return "ItemModel.ItemModelBuilder(id=" + this.id + ", brand=" + this.brand + ", yearOfCreation=" + this.yearOfCreation + ", price=" + this.price + ")";
+        }
     }
 }
