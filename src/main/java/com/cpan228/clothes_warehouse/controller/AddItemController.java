@@ -2,8 +2,8 @@
 
     import com.cpan228.clothes_warehouse.model.ItemModel;
     import com.cpan228.clothes_warehouse.model.ItemModel.FashionBrand;
-    import com.cpan228.clothes_warehouse.repository.impl.jdbcItemModelRepository;
 
+    import com.cpan228.clothes_warehouse.repository.ItemRepository;
     import jakarta.validation.Valid;
     import lombok.extern.slf4j.Slf4j;
     import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +25,10 @@
     @Controller
     @Slf4j //for the .log
     @RequestMapping("/add")
-    public class AddItemModel implements WebMvcConfigurer {
+    public class AddItemController implements WebMvcConfigurer {
 
         @Autowired
-        private jdbcItemModelRepository itemModelRepository;
+        private ItemRepository itemRepository;
 
         @Override
         public void addViewControllers(ViewControllerRegistry registry) {
@@ -40,8 +40,6 @@
             System.out.println("====== testing testing");
             ItemModel itemModel = new ItemModel();
             model.addAttribute("itemModel", itemModel);
-            model.addAttribute("yearOfCreation", 2023);
-            model.addAttribute("price", 1001);
             System.out.println(model);
             return "ItemForm";
         }
@@ -58,9 +56,9 @@
                 return "ItemForm";
             }
             log.info("Processing item: {}", itemModel);
-            itemModelRepository.save(itemModel);
+            itemRepository.save(itemModel);
             Long generatedId = itemModel.getId();
             log.info("Generated ID: " + generatedId);
-            return "redirect:/confirm";
+            return "redirect:/itemlist";
         }
     }
