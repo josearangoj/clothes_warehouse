@@ -32,12 +32,44 @@
 </head>
 <body class="dark-mode">
 <div class="container">
+  <form action="#" th:action="@{/itemlist/search-item}" th:object="${searchModel}" method="post">
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="brand" class="form-label">Brand:</label>
+        <input type="text" class="form-control" id="brand" th:field="*{brand}" name="brand" placeholder="Enter brand"/>
+      </div>
+      <div class="col-md-4">
+        <label for="yearOfCreation" class="form-label">Year:</label>
+        <input type="text" class="form-control" id="yearOfCreation" th:field="*{yearOfCreation}" placeholder="Enter year" />
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-primary mt-3" type="submit">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <ul class="pagination mt-5">
+    <li class="page-item">
+      <a class="page-link" th:href="@{/itemlist/switchPage(pageToSwitch=${currentPage - 1})}">Previous</a>
+    </li>
+    <li
+            class="page-item"
+            th:classappend="${currentPage + 1 eq page} ? 'active' : 'not'"
+            th:each="page: ${#numbers.sequence(1, totalPages)}"
+    >
+      <a class="page-link" th:text="${page}" th:href="@{/itemlist/switchPage(pageToSwitch=${page - 1})}" />
+    </li>
+    <li class="page-item"><a class="page-link" th:href="@{/itemlist/switchPage(pageToSwitch=${currentPage + 1})}">Next</a></li>
+  </ul>
+
+  <h1>All items</h1>
   <div class="row">
     <div th:each="item: ${items}" class="col-md-6">
       <div class="card mb-3 item-palette">
         <div class="card-body">
           <h3 th:text="|${item.brand} - Id: ${item.id}|"></h3>
           <h5 th:text="|Price: ${item.price}|"></h5>
+          <h6 th:text="|Year: ${item.yearOfCreation}|"></h6>
           <h6 th:text="|Created at: ${item.createdAt}|"></h6>
         </div>
       </div>

@@ -1,64 +1,65 @@
-    package com.cpan228.clothes_warehouse.controller;
+package com.cpan228.clothes_warehouse.controller;
 
-    import com.cpan228.clothes_warehouse.model.ItemModel;
-    import com.cpan228.clothes_warehouse.model.ItemModel.FashionBrand;
+import com.cpan228.clothes_warehouse.model.ItemModel;
+import com.cpan228.clothes_warehouse.model.ItemModel.FashionBrand;
 
-    import com.cpan228.clothes_warehouse.repository.ItemRepository;
-    import jakarta.validation.Valid;
-    import lombok.extern.slf4j.Slf4j;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.stereotype.Controller;
+import com.cpan228.clothes_warehouse.model.dto.SearchModel;
+import com.cpan228.clothes_warehouse.repository.ItemRepository;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-    import org.springframework.validation.BindingResult;
-    import org.springframework.web.bind.annotation.GetMapping;
-    import org.springframework.web.bind.annotation.ModelAttribute;
-    import org.springframework.web.bind.annotation.PostMapping;
-    import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-    import org.springframework.ui.Model;
-    import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-    import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-    import java.util.EnumSet;
+import java.util.EnumSet;
 
 
-    @Controller
-    @Slf4j //for the .log
-    @RequestMapping("/add")
-    public class AddItemController implements WebMvcConfigurer {
+@Controller
+@Slf4j //for the .log
+@RequestMapping("/add")
+public class AddItemController implements WebMvcConfigurer {
 
-        @Autowired
-        private ItemRepository itemRepository;
+    @Autowired
+    private ItemRepository itemRepository;
 
-        @Override
-        public void addViewControllers(ViewControllerRegistry registry) {
-            registry.addViewController("/confirm").setViewName("confirm");
-        }
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/confirm").setViewName("confirm");
+    }
 
-        @GetMapping
-        public String showAddItemForm(Model model) {
-            System.out.println("====== testing testing");
-            ItemModel itemModel = new ItemModel();
-            model.addAttribute("itemModel", itemModel);
-            System.out.println(model);
+    @GetMapping
+    public String showAddItemForm(Model model) {
+        ItemModel itemModel = new ItemModel();
+        model.addAttribute("itemModel", itemModel);
+        return "ItemForm";
+    }
+
+    @ModelAttribute
+    public void brands(Model model) {
+        var brands = EnumSet.allOf(FashionBrand.class);
+        model.addAttribute("brands", brands);
+    }
+
+    @PostMapping
+    public String checkItemInfo(@Valid ItemModel itemModel, BindingResult results) {
+        if (results.hasErrors()) {
             return "ItemForm";
         }
+        log.info("Processing item: {}", itemModel);
+        itemRepository.save(itemModel);
+        Long generatedId = itemModel.getId();
+        log.info("Generated ID: " + generatedId);
 
-        @ModelAttribute
-        public void brands(Model model) {
-            var brands = EnumSet.allOf(FashionBrand.class);
-            model.addAttribute("brands", brands);
-        }
-
-        @PostMapping
-        public String checkItemInfo(@Valid ItemModel itemModel, BindingResult results) {
-            if (results.hasErrors()) {
-                return "ItemForm";
-            }
-            log.info("Processing item: {}", itemModel);
-            itemRepository.save(itemModel);
-            Long generatedId = itemModel.getId();
-            log.info("Generated ID: " + generatedId);
-            return "redirect:/itemlist";
-        }
+        return "redirect:/itemlist";
     }
+
+}

@@ -1,5 +1,8 @@
 package com.cpan228.clothes_warehouse.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -13,9 +16,11 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Table
+//@Entity
 public class ItemModel {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private FashionBrand brand;
