@@ -1,7 +1,7 @@
     package com.cpan228.clothes_warehouse.controller;
 
-    import com.cpan228.clothes_warehouse.model.ItemModel;
-    import com.cpan228.clothes_warehouse.model.ItemModel.FashionBrand;
+    import com.cpan228.clothes_warehouse.model.Item;
+    import com.cpan228.clothes_warehouse.model.Item.FashionBrand;
 
     import com.cpan228.clothes_warehouse.repository.ItemRepository;
     import jakarta.validation.Valid;
@@ -38,7 +38,7 @@
         @GetMapping
         public String showAddItemForm(Model model) {
             System.out.println("====== testing testing");
-            ItemModel itemModel = new ItemModel();
+            Item itemModel = new Item();
             model.addAttribute("itemModel", itemModel);
             System.out.println(model);
             return "ItemForm";
@@ -51,7 +51,7 @@
         }
 
         @PostMapping
-        public String checkItemInfo(@Valid ItemModel itemModel, BindingResult results) {
+        public String checkItemInfo(@Valid Item itemModel, BindingResult results) {
             if (results.hasErrors()) {
                 return "ItemForm";
             }
