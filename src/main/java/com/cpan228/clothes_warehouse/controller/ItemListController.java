@@ -16,7 +16,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/itemlist")
 public class ItemListController {
-    private static final int PAGE_SIZE = 5;
+    private static final int PAGE_SIZE = 6;
     private ItemRepository itemRepository;
 
     private ItemRepositoryPaginated itemRepositoryPaginated;
@@ -49,17 +49,28 @@ public class ItemListController {
         model.addAttribute("searchModel", new SearchModel());
     }
 
-//    @PostMapping("/search-item")
-//    public String getItemsByName(@ModelAttribute("searchModel") SearchModel searchModel, Model model){
-//        String brand = String.valueOf(searchModel.getBrand());
-//        int yearOfCreation = Integer.parseInt(searchModel.getYearOfCreation());
-//        List<ItemModel> filteredItems = itemRepository.findByBrand(brand);
-//        List<ItemModel> filteredItems2 = itemRepository.findByBrandAndYearOfCreation(brand, yearOfCreation);
-//
-//        model.addAttribute("filteredItems", filteredItems2);
-//
-//        return "itemSearch";
-//    }
+    @PostMapping("/search-item")
+    public String getItemsByName(@ModelAttribute("searchModel") SearchModel searchModel, Model model){
+        String brand = String.valueOf(searchModel.getBrand());
+        int yearOfCreation = Integer.parseInt(searchModel.getYearOfCreation());
+        List<ItemModel> filteredItems = itemRepository.findByBrand(brand);
+        List<ItemModel> filteredItems2 = itemRepository.findByBrandAndYearOfCreation(brand, yearOfCreation);
+
+        model.addAttribute("filteredItems", filteredItems2);
+        model.addAttribute("filteredItems1", filteredItems);
+
+        return "itemSearch";
+    }
+
+    @PostMapping("/search-item-2")
+    public String getItemsByBrand(@ModelAttribute("searchModel") SearchModel searchModel, Model model){
+        String brand = String.valueOf(searchModel.getBrand());
+        List<ItemModel> filteredItems = itemRepository.findByBrand(brand);
+
+        model.addAttribute("filteredItems1", filteredItems);
+
+        return "itemSearch2";
+    }
 
     @GetMapping("/switchPage")
     public String switchPage(Model model, @RequestParam("pageToSwitch") Optional<Integer> pageToSwitch) {

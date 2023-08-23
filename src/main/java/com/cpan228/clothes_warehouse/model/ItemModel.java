@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Builder
@@ -27,13 +28,15 @@ public class ItemModel {
     private double price;
 
     @NotNull
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private String createdAt = "2023-08-23 12:57:00.0";
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//    String now = LocalDateTime.now().format(formatter);
 
     public ItemModel() {
-        this.createdAt = LocalDateTime.now();
+//        this.createdAt = now;
     }
 
-    public ItemModel(Long id, FashionBrand brand, int yearOfCreation, double price, LocalDateTime createdAt) {
+    public ItemModel(Long id, FashionBrand brand, int yearOfCreation, double price, String createdAt) {
         this.id = id;
         this.brand = brand;
         this.yearOfCreation = yearOfCreation;
