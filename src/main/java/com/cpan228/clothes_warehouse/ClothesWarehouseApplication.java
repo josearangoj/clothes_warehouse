@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @SpringBootApplication
 public class ClothesWarehouseApplication {
@@ -18,7 +19,9 @@ public class ClothesWarehouseApplication {
 	@Bean
 	public CommandLineRunner dataLoader(ItemRepository repository){
 		return args -> {
-			LocalDateTime now = LocalDateTime.now();
+			LocalDateTime now_unformat = LocalDateTime.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			String now = now_unformat.format(formatter);
 
 			repository.save(ItemModel.builder()
 					.brand(ItemModel.FashionBrand.GUCCI)

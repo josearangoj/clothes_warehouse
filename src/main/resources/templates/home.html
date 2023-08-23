@@ -32,6 +32,16 @@
       <button type="submit" class="btn btn-primary">Login/Register</button>
     </div>
   </form>
+  <form id="goToForm2" th:action="@{/add}" method="post">
+    <div class="center-btn mb-3">
+      <button type="submit" class="btn btn-primary">Add Item</button>
+    </div>
+  </form>
+  <form id="goToForm3" th:action="@{/itemlist}" method="get">
+    <div class="center-btn mb-3">
+      <button type="submit" class="btn btn-primary">Item List</button>
+    </div>
+  </form>
 </div>
 </body>
 </html>
