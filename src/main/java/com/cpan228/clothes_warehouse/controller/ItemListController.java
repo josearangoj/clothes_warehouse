@@ -4,6 +4,7 @@ import com.cpan228.clothes_warehouse.model.ItemModel;
 import com.cpan228.clothes_warehouse.model.dto.SearchModel;
 import com.cpan228.clothes_warehouse.repository.ItemRepository;
 import com.cpan228.clothes_warehouse.repository.ItemRepositoryPaginated;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,9 @@ public class ItemListController {
         this.itemRepositoryPaginated = itemRepositoryPaginated;
     }
 
+    @Autowired
+    private ItemRepository fighterRepository;
+
     @GetMapping
     public String showItems(Model model){
         SearchModel searchModel = new SearchModel();
@@ -45,17 +49,17 @@ public class ItemListController {
         model.addAttribute("searchModel", new SearchModel());
     }
 
-    @PostMapping("/search-item")
-    public String getItemsByName(@ModelAttribute("searchModel") SearchModel searchModel, Model model){
-        String brand = String.valueOf(searchModel.getBrand());
-        int yearOfCreation = Integer.parseInt(searchModel.getYearOfCreation());
-        List<ItemModel> filteredItems = itemRepository.findByBrand(brand);
-        List<ItemModel> filteredItems2 = itemRepository.findByBrandAndYearOfCreation(brand, yearOfCreation);
-
-        model.addAttribute("filteredItems", filteredItems2);
-
-        return "itemSearch";
-    }
+//    @PostMapping("/search-item")
+//    public String getItemsByName(@ModelAttribute("searchModel") SearchModel searchModel, Model model){
+//        String brand = String.valueOf(searchModel.getBrand());
+//        int yearOfCreation = Integer.parseInt(searchModel.getYearOfCreation());
+//        List<ItemModel> filteredItems = itemRepository.findByBrand(brand);
+//        List<ItemModel> filteredItems2 = itemRepository.findByBrandAndYearOfCreation(brand, yearOfCreation);
+//
+//        model.addAttribute("filteredItems", filteredItems2);
+//
+//        return "itemSearch";
+//    }
 
     @GetMapping("/switchPage")
     public String switchPage(Model model, @RequestParam("pageToSwitch") Optional<Integer> pageToSwitch) {

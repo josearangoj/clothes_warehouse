@@ -30,23 +30,45 @@
     </style>
   <title>Item Lists</title>
 </head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="/itemlist">ItemList</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/add">Add</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dc">Distribution Centre</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <body class="dark-mode">
 <div class="container">
-  <form action="#" th:action="@{/itemlist/search-item}" th:object="${searchModel}" method="post">
-    <div class="row mb-3">
-      <div class="col-md-4">
-        <label for="brand" class="form-label">Brand:</label>
-        <input type="text" class="form-control" id="brand" th:field="*{brand}" name="brand" placeholder="Enter brand"/>
-      </div>
-      <div class="col-md-4">
-        <label for="yearOfCreation" class="form-label">Year:</label>
-        <input type="text" class="form-control" id="yearOfCreation" th:field="*{yearOfCreation}" placeholder="Enter year" />
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-primary mt-3" type="submit">Search</button>
-      </div>
-    </div>
-  </form>
+<!--  <form action="#" th:action="@{/itemlist/search-item}" th:object="${searchModel}" method="post">-->
+<!--    <div class="row mb-3">-->
+<!--      <div class="col-md-4">-->
+<!--        <label for="brand" class="form-label">Brand:</label>-->
+<!--        <input type="text" class="form-control" id="brand" th:field="*{brand}" name="brand" placeholder="Enter brand"/>-->
+<!--      </div>-->
+<!--      <div class="col-md-4">-->
+<!--        <label for="yearOfCreation" class="form-label">Year:</label>-->
+<!--        <input type="text" class="form-control" id="yearOfCreation" th:field="*{yearOfCreation}" placeholder="Enter year" />-->
+<!--      </div>-->
+<!--      <div class="col-md-4">-->
+<!--        <button class="btn btn-primary mt-3" type="submit">Search</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </form>-->
 
   <ul class="pagination mt-5">
     <li class="page-item">

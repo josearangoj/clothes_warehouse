@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Table
-public class Item {
+public class ItemModel {
 
     @Id
     private Long id;
@@ -29,11 +29,11 @@ public class Item {
     @NotNull
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public Item() {
+    public ItemModel() {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Item(Long id, FashionBrand brand, int yearOfCreation, double price, LocalDateTime createdAt) {
+    public ItemModel(Long id, FashionBrand brand, int yearOfCreation, double price, LocalDateTime createdAt) {
         this.id = id;
         this.brand = brand;
         this.yearOfCreation = yearOfCreation;

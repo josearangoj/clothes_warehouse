@@ -1,12 +1,15 @@
     package com.cpan228.clothes_warehouse.controller;
 
-    import com.cpan228.clothes_warehouse.model.Item;
-    import com.cpan228.clothes_warehouse.model.Item.FashionBrand;
+    import com.cpan228.clothes_warehouse.model.ItemModel;
+    import com.cpan228.clothes_warehouse.model.ItemModel.FashionBrand;
 
+    import com.cpan228.clothes_warehouse.model.User;
     import com.cpan228.clothes_warehouse.repository.ItemRepository;
     import jakarta.validation.Valid;
     import lombok.extern.slf4j.Slf4j;
     import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.security.access.prepost.PreAuthorize;
+    import org.springframework.security.core.annotation.AuthenticationPrincipal;
     import org.springframework.stereotype.Controller;
 
     import org.springframework.validation.BindingResult;
@@ -37,10 +40,8 @@
 
         @GetMapping
         public String showAddItemForm(Model model) {
-            System.out.println("====== testing testing");
-            Item itemModel = new Item();
+            ItemModel itemModel = new ItemModel();
             model.addAttribute("itemModel", itemModel);
-            System.out.println(model);
             return "ItemForm";
         }
 
@@ -51,14 +52,19 @@
         }
 
         @PostMapping
-        public String checkItemInfo(@Valid Item itemModel, BindingResult results) {
+        public String checkItemInfo(@Valid ItemModel itemModel, BindingResult results) {
             if (results.hasErrors()) {
                 return "ItemForm";
             }
-            log.info("Processing item: {}", itemModel);
             itemRepository.save(itemModel);
             Long generatedId = itemModel.getId();
-            log.info("Generated ID: " + generatedId);
             return "redirect:/itemlist";
+        }
+
+        @PostMapping("/deleteAllItems")
+        @PreAuthorize("hasRole('ROLE_ADMIN')")
+        public String processFightersDeletion(@AuthenticationPrincipal User user) {
+            itemRepository.deleteAll();
+            return "redirect:/";
         }
     }

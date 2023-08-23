@@ -28,6 +28,6 @@ public class RegistrationController {
     @PostMapping
     public String registerUserAccount(RegistrationForm form) {
         userRepository.save(form.toUser(passwordEncoder));
-        return "redirect:/";
+        return "redirect:/login";
     }
 }

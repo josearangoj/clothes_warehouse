@@ -22,7 +22,7 @@ import jakarta.persistence.Id;
 @Builder
 @AllArgsConstructor
 @Entity(name = "users")
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@NoArgsConstructor(access = AccessLevel.PUBLIC) // Change access level to public
 public class User implements UserDetails {
 
     @Id
@@ -34,7 +34,16 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        if ("admin".equals(username)) {
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"),
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_WAREHOUSE"));
+        } else if ("warehouse".equals(username)) {
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"),
+                    new SimpleGrantedAuthority("ROLE_WAREHOUSE"));
+        } else {
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        }
     }
 
     @Override
