@@ -26,17 +26,19 @@ After you clone this repo to your desktop, go to its root directory and run `Clo
 ## Features
 
 - Login / Register (authentication and Spring security included)
-
-- 
+![Chat Preview](https://github.com/josearangoj/spring_clothes_warehouse/blob/main/assets/login_register.png?raw=true)
 
 - Add Item
-  (https://github.com/josearangoj/spring_clothes_warehouse/blob/main/assets/add_item.png?raw=true)
+![](https://github.com/josearangoj/spring_clothes_warehouse/blob/main/assets/add_item.png?raw=true)
 
-(https://github.com/josearangoj/spring_clothes_warehouse/blob/main/assets/item_added.png?raw=true)
+![](https://github.com/josearangoj/spring_clothes_warehouse/blob/main/assets/item_added.png?raw=true)
 
-- Search on the Database (https://github.com/josearangoj/spring_clothes_warehouse/blob/main/assets/login_register.png?raw=true)
+- Search on the Database
+  ![](https://github.com/josearangoj/spring_clothes_warehouse/blob/main/assets/search_1.png?raw=true)
+  
+  ![](https://github.com/josearangoj/spring_clothes_warehouse/blob/main/assets/search_2.png?raw=true)
 
-- Search Movie
-  ![Chat Preview](https://github.com/josearangoj/spring_clothes_warehouse/blob/main/assets/login_register.png?raw=true)
-
+- All Items Deleted
+  ![](https://github.com/josearangoj/spring_clothes_warehouse/blob/main/assets/items_deleted.png?raw=true)
+  
 ---
